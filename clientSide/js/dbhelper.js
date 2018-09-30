@@ -20,16 +20,25 @@ class DBHelper {
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
-  static get DATABASE_URL() {
-    const port = 1337 // Change this to your server port
+  static get RESTAURANT_DB_URL() {
+    const port = 1337; // Change this to your server port
     return `http://localhost:${port}/restaurants`;
+  }
+
+  /**
+   * Database URL.
+   * Change this to reviews.json file location on your server.
+   */
+  static get REVIEW_DB_URL() {
+    const port = 1337; // Change this to your server port
+    return `http://localhost:${port}/reviews`;
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL).then(function(response) {
+    fetch(DBHelper.RESTAURANT_DB_URL).then(function(response) {
       if(response.ok) {
         return response.json();
       }
@@ -38,8 +47,29 @@ class DBHelper {
       callback(null, json);
     }).catch(function(error) {
       console.log('Offline, or:', error.message);
-      idb.open('restaurant-reviews', 1).then(db => {
+      idb.open('restaurant-data', 1).then(db => {
         return db.transaction('restaurants').objectStore('restaurants').getAll();
+      }).then(data => {
+        callback(null, data);
+      });
+    });
+  }
+
+  /**
+   * Fetch all reviews.
+   */
+  static fetchReviews(callback) {
+    fetch(DBHelper.REVIEW_DB_URL).then(function(response) {
+      if(response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.')
+    }).then(function(json) {
+      callback(null, json);
+    }).catch(function(error) {
+      console.log('Offline, or:', error.message);
+      idb.open('restaurant-data', 1).then(db => {
+        return db.transaction('reviews').objectStore('reviews').getAll();
       }).then(data => {
         callback(null, data);
       });
@@ -61,6 +91,20 @@ class DBHelper {
         } else { // Restaurant does not exist in the database
           callback('Restaurant does not exist', null);
         }
+      }
+    });
+  }
+
+  /**
+   * Fetch all reviews for a restaurant by restaurant ID.
+   */
+  static fetchReviewByRestaurantId(id, callback) {
+    DBHelper.fetchReviews((error, reviews) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        const results = reviews.filter(r => r.restaurant_id == id);
+        callback(null, results);
       }
     });
   }

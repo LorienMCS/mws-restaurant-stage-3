@@ -13,9 +13,10 @@ let urlsToCache = [
   '/img/'
 ];
 let restaurants = [];
+let reviews = [];
 
 function getRestaurants() {
-  fetch(DBHelper.DATABASE_URL).then(function(response) {
+  fetch(DBHelper.RESTAURANT_DB_URL).then(function(response) {
     if(response.ok) {
       return response.json();
     }
@@ -28,16 +29,38 @@ function getRestaurants() {
   });
 }
 
+function getReviews() {
+  fetch(DBHelper.REVIEW_DB_URL).then(function(response) {
+    if(response.ok) {
+      return response.json();
+    }
+    throw new Error('Network response was not okay.')
+  }).then(function(json) {
+    reviews = json;
+    return reviews;
+  }).catch(function(error) {
+    console.log('Fetch in service worker had an error:', error.message);
+  });
+}
+
 function createAndFillDB() {
   'use strict';
-  idb.open('restaurant-reviews', 1, upgradeDb => {
+  idb.open('restaurant-data', 1, upgradeDb => {
     if (!upgradeDb.objectStoreNames.contains('restaurants')) {
-      console.log('making a new object store');
-      let store = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
+      console.log('making a new restaurants object store');
+      let restaurantStore = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
       restaurants.map(restaurant => {
-        store.add(restaurant);
+        restaurantStore.add(restaurant);
       });
       console.log('Restaurants added successfully');
+    }
+    if (!upgradeDb.objectStoreNames.contains('reviews')) {
+      console.log('making a new reviews object store');
+      let reviewStore = upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
+      restaurants.map(review => {
+        reviewStore.add(review);
+      });
+      console.log('Reviews added successfully');
     }
   });
 }
@@ -47,6 +70,9 @@ function createAndFillDB() {
 self.addEventListener('install', event => {
   event.waitUntil(
     getRestaurants()
+  );
+  event.waitUntil(
+    getReviews()
   );
   event.waitUntil(
     caches.open(cacheName).then(cache => {
