@@ -169,6 +169,9 @@ createRestaurantHTML = (restaurant) => {
 
   const fave = document.createElement('button');
   fave.innerHTML = `Add ${restaurant.name} to Favorites`;
+  fave.setAttribute("type", "button");
+  // aria-pressed defines the button as a toggle button
+  fave.setAttribute("aria-pressed", "false");
   li.append(fave);
 
   return li
