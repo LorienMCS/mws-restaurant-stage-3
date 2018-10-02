@@ -251,7 +251,8 @@ label,
   font-size: 1.1rem;
 }
 
-#restaurants-list li a, button {
+#restaurants-list li a,
+#fave-restaurant {
   border-bottom: 3px solid #eee;
   color: black;
   display: inline-block;
@@ -267,7 +268,7 @@ label,
   background-color: #ffece6;
 }
 
-#restaurants-list li button {
+#fave-restaurant {
   background-color: #ebf8ff;
 }
 
