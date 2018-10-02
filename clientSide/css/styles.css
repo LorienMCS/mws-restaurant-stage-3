@@ -251,8 +251,7 @@ label,
   font-size: 1.1rem;
 }
 
-#restaurants-list li a {
-  background-color: #ffece6;
+#restaurants-list li a, button {
   border-bottom: 3px solid #eee;
   color: black;
   display: inline-block;
@@ -262,6 +261,14 @@ label,
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+#restaurants-list li a {
+  background-color: #ffece6;
+}
+
+#restaurants-list li button {
+  background-color: #ebf8ff;
 }
 
 /* ====================== Restaurant Details ====================== */
