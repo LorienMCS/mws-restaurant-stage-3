@@ -165,7 +165,11 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = `View Details of ${restaurant.name}`;
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  li.append(more);
+
+  const fave = document.createElement('button');
+  fave.innerHTML = `Add ${restaurant.name} to Favorites`;
+  li.append(fave);
 
   return li
 }
