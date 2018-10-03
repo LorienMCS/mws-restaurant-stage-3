@@ -168,15 +168,6 @@ createRestaurantHTML = (restaurant) => {
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
 
-  const fave = document.createElement('button');
-  fave.id = 'fave-restaurant';
-  fave.innerHTML = `Add ${restaurant.name} to Favorites`;
-  fave.setAttribute("type", "button");
-  // aria-pressed defines the button as a toggle button
-  fave.setAttribute("aria-pressed", "false");
-  fave.setAttribute("onClick", "addOrRemoveFromFavorites()");
-  li.append(fave);
-
   return li
 }
 
@@ -193,23 +184,4 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     }
     self.markers.push(marker);
   });
-}
-
-/**
- * Toggle Favorites button
- * Code from MDN toggle button example
- */
-toggleButton = (element) => {
-  // Check to see if the button is pressed
-  const pressed = (element.getAttribute("aria-pressed") === "true");
-  // Change aria-pressed to the opposite state
-  element.setAttribute("aria-pressed", !pressed);
-}
-
-/**
- * Add a restaurant to Favorites, or remove it from Favorites
- */
-addOrRemoveFromFavorites = () => {
-  faveButton = document.getElementById("fave-restaurant");
-  toggleButton(faveButton);
 }

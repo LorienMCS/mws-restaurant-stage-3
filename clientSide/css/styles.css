@@ -251,13 +251,12 @@ label,
   font-size: 1.1rem;
 }
 
-#restaurants-list li a,
-#fave-restaurant {
+#restaurants-list li a {
   border-bottom: 3px solid #eee;
   color: black;
   display: inline-block;
-  margin: 15px 0 0;
-  padding: 8px 30px 10px;
+  margin: 30px 0 0;
+  padding: 10px 30px 10px;
   font-size: 1.2rem;
   text-align: center;
   text-decoration: none;
@@ -266,10 +265,6 @@ label,
 
 #restaurants-list li a {
   background-color: #ffece6;
-}
-
-#fave-restaurant {
-  background-color: #ebf8ff;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -295,6 +290,20 @@ label,
   letter-spacing: 0;
   margin: 15px 0 30px;
   text-transform: uppercase;
+}
+
+#fave-restaurant {
+  background-color: #ebf8ff;
+  border-bottom: 3px solid #eee;
+  color: black;
+  display: inline-block;
+  margin: 0 0 30px 0;
+  padding: 10px 30px 10px 30px;
+  font-size: 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 90%;
 }
 
 #restaurant-img {

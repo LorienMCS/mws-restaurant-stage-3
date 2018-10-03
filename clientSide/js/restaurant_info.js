@@ -68,13 +68,19 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
-  const address = document.getElementById('restaurant-address');
-  address.innerHTML = restaurant.address;
+  const fave = document.getElementById('fave-restaurant');
+  fave.innerHTML = `Add ${restaurant.name} to Favorites`;
+  // aria-pressed defines the button as a toggle button
+  fave.setAttribute("aria-pressed", "false");
+  fave.setAttribute("onClick", "addOrRemoveFromFavorites()");
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.alt = `${restaurant.name} restaurant`;
+
+  const address = document.getElementById('restaurant-address');
+  address.innerHTML = restaurant.address;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -181,4 +187,31 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+/**
+ * Toggle Favorites button
+ * Code from MDN toggle button example
+ */
+toggleButton = (element) => {
+  // Check to see if the button is pressed
+  const pressed = (element.getAttribute("aria-pressed") === "true");
+  // Change aria-pressed to the opposite state
+  element.setAttribute("aria-pressed", !pressed);
+}
+
+/**
+ * Add a restaurant to Favorites, or remove it from Favorites
+ */
+addOrRemoveFromFavorites = (restaurant = self.restaurant) => {
+  faveButton = document.getElementById("fave-restaurant");
+  if (faveButton.getAttribute("aria-pressed") === "false") {
+    faveButton.style.backgroundColor = "#fef5e0";
+    faveButton.innerHTML = `Remove ${restaurant.name} from Favorites`;
+    toggleButton(faveButton);
+  } else {
+    faveButton.style.backgroundColor = "#ebf8ff";
+    faveButton.innerHTML = `Add ${restaurant.name} to Favorites`;
+    toggleButton(faveButton);
+  }
 }
