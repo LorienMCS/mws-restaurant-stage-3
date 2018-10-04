@@ -62,17 +62,40 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
+ * Set fave button to match database is_favorite=true
+ */
+yesFaveButton = (restaurant = self.restaurant) => {
+  faveButton = document.getElementById("fave-restaurant");
+  faveButton.style.backgroundColor = "#fef5e0";
+  faveButton.innerHTML = `Remove ${restaurant.name} from Favorites`;
+  faveButton.setAttribute("aria-pressed", "true");
+}
+
+/**
+ * Set fave button to match database is_favorite=false
+ */
+noFaveButton = (restaurant = self.restaurant) => {
+  faveButton = document.getElementById("fave-restaurant");
+  faveButton.style.backgroundColor = "#ebf8ff";
+  faveButton.innerHTML = `Add ${restaurant.name} to Favorites`;
+  faveButton.setAttribute("aria-pressed", "false");
+}
+
+/**
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
+  const isFave = restaurant.is_favorite;
   name.innerHTML = restaurant.name;
 
   const fave = document.getElementById('fave-restaurant');
-  fave.innerHTML = `Add ${restaurant.name} to Favorites`;
-  // aria-pressed defines the button as a toggle button
-  fave.setAttribute("aria-pressed", "false");
-  fave.setAttribute("onClick", "addOrRemoveFromFavorites()");
+  if(isFave.toString() === 'false') {
+    noFaveButton(restaurant);
+  } else {
+    yesFaveButton(restaurant);
+  };
+  fave.setAttribute("onClick", "addToOrRemoveFromFavorites()");
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
@@ -190,28 +213,34 @@ getParameterByName = (name, url) => {
 }
 
 /**
- * Toggle Favorites button
- * Code from MDN toggle button example
+ * Change is_favorite in server-side and client-side databases
  */
-toggleButton = (element) => {
-  // Check to see if the button is pressed
-  const pressed = (element.getAttribute("aria-pressed") === "true");
-  // Change aria-pressed to the opposite state
-  element.setAttribute("aria-pressed", !pressed);
+changeFaveInDb = (restaurantID, faveBoolean) => {
+  const faveRestaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurantID}/?${faveBoolean}`;
+  fetch(faveRestaurantURL, {
+    method: 'PUT'
+  }).then(res => res.json())
+  .then(() => {
+    // TODO:
+    // Implement saving fave to IDB
+  })
+  .catch(error => {
+    console.error('Offline, or:', error);
+  });
 }
 
 /**
  * Add a restaurant to Favorites, or remove it from Favorites
  */
-addOrRemoveFromFavorites = (restaurant = self.restaurant) => {
+addToOrRemoveFromFavorites = (restaurant = self.restaurant) => {
   faveButton = document.getElementById("fave-restaurant");
   if (faveButton.getAttribute("aria-pressed") === "false") {
-    faveButton.style.backgroundColor = "#fef5e0";
-    faveButton.innerHTML = `Remove ${restaurant.name} from Favorites`;
-    toggleButton(faveButton);
+    const yesFave = 'is_favorite=true';
+    changeFaveInDb(restaurant.id, yesFave);
+    yesFaveButton(restaurant);
   } else {
-    faveButton.style.backgroundColor = "#ebf8ff";
-    faveButton.innerHTML = `Add ${restaurant.name} to Favorites`;
-    toggleButton(faveButton);
+    const noFave = 'is_favorite=false';
+    changeFaveInDb(restaurant.id, noFave);
+    noFaveButton(restaurant);
   }
 }
