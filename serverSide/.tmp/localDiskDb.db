@@ -69,8 +69,9 @@
           "Sunday": "11:30 am - 2:00 am"
         },
         "createdAt": 1504095571434,
-        "updatedAt": 1504095571434,
-        "id": 3
+        "updatedAt": "2018-10-04T22:49:46.195Z",
+        "id": 3,
+        "is_favorite": "false"
       },
       {
         "name": "Katz's Delicatessen",

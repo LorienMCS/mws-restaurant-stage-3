@@ -1,5 +1,6 @@
 let restaurant;
 var newMap;
+const faveButton = document.getElementById("fave-restaurant");
 
 /**
  * Initialize Leaflet map as soon as page loads.
@@ -62,10 +63,28 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
+ * If is_favorite is missing on a restaurant, POST it to server
+ */
+addIsFave = (restaurantID) => {
+  const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurantID}/`;
+  const data = {
+    "is_favorite": "false"
+  }
+  fetch(restaurantURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json());
+  })
+  .catch(error => {
+    console.error('Offline, or:', error);
+  });
+}
+
+/**
  * Set fave button to match database is_favorite=true
  */
 yesFaveButton = (restaurant = self.restaurant) => {
-  faveButton = document.getElementById("fave-restaurant");
   faveButton.style.backgroundColor = "#fef5e0";
   faveButton.innerHTML = `Remove ${restaurant.name} from Favorites`;
   faveButton.setAttribute("aria-pressed", "true");
@@ -75,7 +94,6 @@ yesFaveButton = (restaurant = self.restaurant) => {
  * Set fave button to match database is_favorite=false
  */
 noFaveButton = (restaurant = self.restaurant) => {
-  faveButton = document.getElementById("fave-restaurant");
   faveButton.style.backgroundColor = "#ebf8ff";
   faveButton.innerHTML = `Add ${restaurant.name} to Favorites`;
   faveButton.setAttribute("aria-pressed", "false");
@@ -89,13 +107,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const isFave = restaurant.is_favorite;
   name.innerHTML = restaurant.name;
 
-  const fave = document.getElementById('fave-restaurant');
-  if(isFave.toString() === 'false') {
-    noFaveButton(restaurant);
+  if(isFave) {
+    if(isFave.toString() === 'false') {
+      noFaveButton(restaurant);
+    } else {
+      yesFaveButton(restaurant);
+    };
   } else {
-    yesFaveButton(restaurant);
-  };
-  fave.setAttribute("onClick", "addToOrRemoveFromFavorites()");
+    addIsFave(restaurant.id);
+  }
+  faveButton.setAttribute("onClick", "addToOrRemoveFromFavorites()");
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
@@ -233,7 +254,6 @@ changeFaveInDb = (restaurantID, faveBoolean) => {
  * Add a restaurant to Favorites, or remove it from Favorites
  */
 addToOrRemoveFromFavorites = (restaurant = self.restaurant) => {
-  faveButton = document.getElementById("fave-restaurant");
   if (faveButton.getAttribute("aria-pressed") === "false") {
     const yesFave = 'is_favorite=true';
     changeFaveInDb(restaurant.id, yesFave);
