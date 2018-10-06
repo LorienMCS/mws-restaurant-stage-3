@@ -57,7 +57,7 @@ function createAndFillDB() {
     if (!upgradeDb.objectStoreNames.contains('reviews')) {
       console.log('making a new reviews object store');
       let reviewStore = upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
-      restaurants.map(review => {
+      reviews.map(review => {
         reviewStore.add(review);
       });
       console.log('Reviews added successfully');
