@@ -21,7 +21,7 @@
           "Sunday": "12:00 pm - 4:00 pm, 5:30 pm - 11:00 pm"
         },
         "createdAt": 1504095563444,
-        "updatedAt": "2018-10-04T00:59:33.693Z",
+        "updatedAt": "2018-10-05T23:02:33.417Z",
         "id": 1,
         "is_favorite": "false"
       },
@@ -50,30 +50,6 @@
         "id": 2
       },
       {
-        "name": "Kang Ho Dong Baekjeong",
-        "neighborhood": "Manhattan",
-        "photograph": "3",
-        "address": "1 E 32nd St, New York, NY 10016",
-        "latlng": {
-          "lat": 40.747143,
-          "lng": -73.985414
-        },
-        "cuisine_type": "Asian",
-        "operating_hours": {
-          "Monday": "11:30 am - 2:00 am",
-          "Tuesday": "11:30 am - 2:00 am",
-          "Wednesday": "11:30 am - 2:00 am",
-          "Thursday": "11:30 am - 2:00 am",
-          "Friday": "11:30 am - 6:00 am",
-          "Saturday": "11:30 am - 6:00 am",
-          "Sunday": "11:30 am - 2:00 am"
-        },
-        "createdAt": 1504095571434,
-        "updatedAt": "2018-10-04T22:49:46.195Z",
-        "id": 3,
-        "is_favorite": "false"
-      },
-      {
         "name": "Katz's Delicatessen",
         "neighborhood": "Manhattan",
         "photograph": "4",
@@ -93,8 +69,8 @@
           "Sunday": "Sat - 10:30 pm"
         },
         "createdAt": 1504095567091,
-        "updatedAt": 1504095567091,
-        "is_favorite": false,
+        "updatedAt": "2018-10-05T23:03:29.298Z",
+        "is_favorite": "false",
         "id": 4
       },
       {
@@ -117,8 +93,8 @@
           "Sunday": "10:00 am - 12:00 am"
         },
         "createdAt": 1504095567071,
-        "updatedAt": 1504095567071,
-        "is_favorite": false,
+        "updatedAt": "2018-10-05T23:03:45.851Z",
+        "is_favorite": "false",
         "id": 5
       },
       {
@@ -141,8 +117,8 @@
           "Sunday": "12:00 pm - 9:00 pm"
         },
         "createdAt": 1504095567071,
-        "updatedAt": "2018-10-04T00:52:28.251Z",
-        "is_favorite": "true",
+        "updatedAt": "2018-10-05T23:08:50.229Z",
+        "is_favorite": "false",
         "id": 6
       },
       {
@@ -165,8 +141,8 @@
           "Sunday": "11:30 am - 10:00 pm"
         },
         "createdAt": 1504095567091,
-        "updatedAt": 1504095567091,
-        "is_favorite": false,
+        "updatedAt": "2018-10-05T23:09:17.132Z",
+        "is_favorite": "false",
         "id": 7
       },
       {
@@ -189,8 +165,8 @@
           "Sunday": "10:00 am - 3:00 pm, 5:30 pm - 11:00 pm"
         },
         "createdAt": 1504095567091,
-        "updatedAt": 1504095567091,
-        "is_favorite": false,
+        "updatedAt": "2018-10-05T23:09:38.499Z",
+        "is_favorite": "false",
         "id": 8
       },
       {
@@ -213,8 +189,8 @@
           "Sunday": "5:00 pm - 10:00 pm"
         },
         "createdAt": 1504095567191,
-        "updatedAt": 1504095567191,
-        "is_favorite": false,
+        "updatedAt": "2018-10-05T23:10:02.930Z",
+        "is_favorite": "false",
         "id": 9
       },
       {
@@ -236,9 +212,32 @@
           "Sunday": "11:00 am - 12:00 am"
         },
         "createdAt": 1504095567183,
-        "updatedAt": "2018-10-04T00:52:41.782Z",
-        "is_favorite": "true",
+        "updatedAt": "2018-10-05T23:17:36.920Z",
+        "is_favorite": "false",
         "id": 10
+      },
+      {
+        "name": "Kang Ho Dong Baekjeong",
+        "neighborhood": "Manhattan",
+        "photograph": "3",
+        "address": "1 E 32nd St, New York, NY 10016",
+        "latlng": {
+          "lat": 40.747143,
+          "lng": -73.985414
+        },
+        "cuisine_type": "Asian",
+        "operating_hours": {
+          "Monday": "11:30 am - 2:00 am",
+          "Tuesday": "11:30 am - 2:00 am",
+          "Wednesday": "11:30 am - 2:00 am",
+          "Thursday": "11:30 am - 2:00 am",
+          "Friday": "11:30 am - 6:00 am",
+          "Saturday": "11:30 am - 6:00 am",
+          "Sunday": "11:30 am - 2:00 am"
+        },
+        "createdAt": 1504095571434,
+        "updatedAt": "2018-10-04T22:49:46.195Z",
+        "id": 3
       }
     ],
     "reviews": [

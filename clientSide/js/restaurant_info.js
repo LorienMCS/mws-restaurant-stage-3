@@ -63,10 +63,66 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
+* DEVELOPMENT ONLY: For testing IDB addIsFave function
+*/
+addRestaurantWithoutIsFave = () => {
+ const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/`;
+ const data = {
+   "name": "Kang Ho Dong Baekjeong",
+   "neighborhood": "Manhattan",
+   "photograph": "3",
+   "address": "1 E 32nd St, New York, NY 10016",
+   "latlng": {
+     "lat": 40.747143,
+     "lng": -73.985414
+   },
+   "cuisine_type": "Asian",
+   "operating_hours": {
+     "Monday": "11:30 am - 2:00 am",
+     "Tuesday": "11:30 am - 2:00 am",
+     "Wednesday": "11:30 am - 2:00 am",
+     "Thursday": "11:30 am - 2:00 am",
+     "Friday": "11:30 am - 6:00 am",
+     "Saturday": "11:30 am - 6:00 am",
+     "Sunday": "11:30 am - 2:00 am"
+   },
+   "createdAt": 1504095571434,
+   "updatedAt": "2018-10-04T22:49:46.195Z",
+   "id": 3,
+ };
+ fetch(restaurantURL, {
+   method: "POST",
+   body: JSON.stringify(data)
+ })
+ .then((response) => {
+   response.json();
+ })
+ .catch(error => {
+   console.error('Offline, or:', error);
+ });
+}
+
+removeIsFaveFromRestaurantThree = () => {
+  const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/3/`;
+  fetch(restaurantURL, {
+    method: "DELETE"
+  })
+  .then((response) => {
+    response.json();
+  })
+  .then(() => {
+    addRestaurantWithoutIsFave();
+  })
+  .catch(error => {
+    console.error('Offline, or:', error);
+  });
+}
+
+/**
  * If is_favorite is missing on a restaurant, POST it to server
  */
-addIsFave = (restaurantID) => {
-  const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurantID}/`;
+addIsFave = (restaurant) => {
+  const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurant.id}/`;
   const data = {
     "is_favorite": "false"
   }
@@ -74,10 +130,30 @@ addIsFave = (restaurantID) => {
     method: "POST",
     body: JSON.stringify(data)
   })
-  .then(response => response.json());
+  .then((response) => {
+    response.json();
   })
   .catch(error => {
     console.error('Offline, or:', error);
+    const item = {
+      name: restaurant.name,
+      neighborhood: restaurant.neighborhood,
+      photograph: restaurant.photograph,
+      address: restaurant.address,
+      latlng: restaurant.latlng,
+      cuisine_type: restaurant.cuisine_type,
+      operating_hours: restaurant.operating_hours,
+      createdAt: restaurant.createdAt,
+      updatedAt: restaurant.updatedAt,
+      id: restaurant.id,
+      is_favorite: 'false'
+    };
+    idb.open('restaurant-data', 1).then(db => {
+      return db.transaction('restaurants', 'readwrite').objectStore('restaurants').put(item);
+    })
+    .then(() => {
+      console.log('Added isFave to IDB');
+    });
   });
 }
 
@@ -100,6 +176,17 @@ noFaveButton = (restaurant = self.restaurant) => {
 }
 
 /**
+ * Set fave button to yes or no
+ */
+toggleFaveButton = (isFave) => {
+  if(isFave.toString() === 'false') {
+    noFaveButton(restaurant);
+  } else {
+    yesFaveButton(restaurant);
+  };
+}
+
+/**
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
@@ -108,13 +195,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.innerHTML = restaurant.name;
 
   if(isFave) {
-    if(isFave.toString() === 'false') {
-      noFaveButton(restaurant);
-    } else {
-      yesFaveButton(restaurant);
-    };
+    toggleFaveButton(isFave);
+    //DEVELOPEMENT ONLY: For testing addIsFave function
+    //removeIsFaveFromRestaurantThree();
   } else {
-    addIsFave(restaurant.id);
+    addIsFave(restaurant);
   }
   faveButton.setAttribute("onClick", "addToOrRemoveFromFavorites()");
 
