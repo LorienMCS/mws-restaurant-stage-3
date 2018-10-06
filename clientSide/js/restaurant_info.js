@@ -321,17 +321,20 @@ getParameterByName = (name, url) => {
 /**
  * Change is_favorite in server-side and client-side databases
  */
-changeFaveInDb = (restaurantID, faveBoolean) => {
-  const faveRestaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurantID}/?${faveBoolean}`;
+changeFaveInDb = (restaurantID, serverFave, idbFave, restaurant = self.restaurant) => {
+  const faveRestaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurantID}/?${serverFave}`;
   fetch(faveRestaurantURL, {
     method: 'PUT'
   }).then(res => res.json())
-  .then(() => {
-    // TODO:
-    // Implement saving fave to IDB
-  })
   .catch(error => {
     console.error('Offline, or:', error);
+    restaurant.is_favorite = idbFave;
+    idb.open('restaurant-data', 1).then(db => {
+      return db.transaction('restaurants', 'readwrite').objectStore('restaurants').put(restaurant);
+    })
+    .then(() => {
+      console.log('Changed is_favorite in IDB');
+    });
   });
 }
 
@@ -341,11 +344,13 @@ changeFaveInDb = (restaurantID, faveBoolean) => {
 addToOrRemoveFromFavorites = (restaurant = self.restaurant) => {
   if (faveButton.getAttribute("aria-pressed") === "false") {
     const yesFave = 'is_favorite=true';
-    changeFaveInDb(restaurant.id, yesFave);
+    const yesFaveBool = 'true';
+    changeFaveInDb(restaurant.id, yesFave, yesFaveBool);
     yesFaveButton(restaurant);
   } else {
     const noFave = 'is_favorite=false';
-    changeFaveInDb(restaurant.id, noFave);
+    const noFaveBool = 'false';
+    changeFaveInDb(restaurant.id, noFave, noFaveBool);
     noFaveButton(restaurant);
   }
 }
