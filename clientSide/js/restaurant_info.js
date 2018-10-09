@@ -63,6 +63,34 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
+ * Get data from review form, and put it in database
+ */
+window.addEventListener("load", () => {
+  // Access the form element
+  const form = document.getElementById("review-form");
+
+  // Take over the form element's submit event
+  form.addEventListener("submit", (event) => {
+    // Stop the form from actually submitting itself
+    event.preventDefault();
+    sendData();
+  })
+
+  sendData = () => {
+    // FormData object for uploading to server; can't be stringified
+    const formData = new FormData(form);
+
+    // Get data that can be added to IDB, since formData can't be stringified
+    const nameInput = document.getElementById("first-name");
+    const ratingInput = document.querySelector("input[name=rating]:checked");
+    const commentInput = document.getElementById("comment");
+    console.log(nameInput.value, ratingInput.value, commentInput.value);
+
+  }
+
+});
+
+/**
 * DEVELOPMENT ONLY: For testing IDB addIsFave function
 */
 addRestaurantWithoutIsFave = () => {
