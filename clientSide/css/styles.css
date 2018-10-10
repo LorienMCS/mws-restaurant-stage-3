@@ -30,11 +30,16 @@ h1 {
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  margin: 10px 0 20px;
+  color: #d42613;
+  font-weight: 300;
+  letter-spacing: -1px;
+  padding: 10px 0 1pt;
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 a {
@@ -339,23 +344,16 @@ label,
   text-align: left;
 }
 
-#restaurant-hours th, #restaurant-hours td {
+#restaurant-hours th,
+#restaurant-hours td {
   padding: 5px 0 0 12px;
 }
 
 .restaurant-container,
-#reviews-container {
+.reviews {
   border-bottom: 1px solid #e6e6e6;
   border-top: 1px solid #fff;
   padding: 0 0 0 20px;
-}
-
-#reviews-container h2 {
-  margin: 10px 0 20px;
-  color: #d42613;
-  font-weight: 300;
-  letter-spacing: -1px;
-  padding: 10px 0 1pt;
 }
 
 #reviews-list {

@@ -77,6 +77,17 @@ class DBHelper {
   }
 
   /**
+   * Get all offline reviews in outbox object store.
+   */
+  static getOfflineReviews(callback) {
+    idb.open('restaurant-data', 1).then(db => {
+      return db.transaction('outbox').objectStore('outbox').getAll();
+    }).then(data => {
+      callback(null, data);
+    });
+  }
+
+  /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
@@ -100,6 +111,20 @@ class DBHelper {
    */
   static fetchReviewByRestaurantId(id, callback) {
     DBHelper.fetchReviews((error, reviews) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        const results = reviews.filter(r => r.restaurant_id == id);
+        callback(null, results);
+      }
+    });
+  }
+
+  /**
+   * Get all reviews in outbox object store for a restaurant by restaurant ID.
+   */
+  static getOfflineReviewByRestaurantId(id, callback) {
+    DBHelper.getOfflineReviews((error, reviews) => {
       if (error) {
         callback(error, null);
       } else {

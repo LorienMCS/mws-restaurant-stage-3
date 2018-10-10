@@ -484,6 +484,15 @@
         "createdAt": "2018-10-10T07:52:09.601Z",
         "updatedAt": "2018-10-10T07:52:09.601Z",
         "id": 35
+      },
+      {
+        "name": "Ace",
+        "rating": "3",
+        "comments": "Ugh! Why do they allow dogs in this restaurant? I'm allergic to dogs!",
+        "restaurant_id": "2",
+        "createdAt": "2018-10-10T09:56:04.929Z",
+        "updatedAt": "2018-10-10T09:56:04.929Z",
+        "id": 36
       }
     ]
   },
@@ -539,7 +548,7 @@
       "id": 10
     },
     "reviews": {
-      "id": 35
+      "id": 36
     }
   }
 }

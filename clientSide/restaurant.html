@@ -63,64 +63,69 @@
         </section>
         <!-- end restaurant -->
         <!-- Beginning reviews -->
-        <section id="reviews-container">
-          <h2>Add a Review</h2>
-          <p>(All fields required)</p>
-          <form id="review-form" action="" method="post">
-            <!-- Wrap text and input in a label element for accessibility -->
-            <label for="first-name">
-              Your First Name (only letters, dashes, apostrophes, and spaces allowed):
-              <input id="first-name" type="text" name="name" maxlength="30" spellcheck="false" required aria-required="true" pattern="[A-Za-z' -]+">
-            </label>
-            <fieldset role="radiogroup" aria-required="true">
-              <legend>Rating</legend>
-              <div class="radio-select">
-                <label for="zero">
-                  0
-                  <input id="zero" type="radio" name="rating" value="0">
-                </label>
-              </div>
-              <div class="radio-select">
-                <label for="one">
-                  1
-                  <input id="one" type="radio" name="rating" value="1">
-                </label>
-              </div>
-              <div class="radio-select">
-                <label for="two">
-                  2
-                  <input id="two" type="radio" name="rating" value="2">
-                </label>
-              </div>
-              <div class="radio-select">
-                <label for="three">
-                  3
-                  <input id="three" type="radio" name="rating" value="3" required>
-                </label>
-              </div>
-              <div class="radio-select">
-                <label for="four">
-                  4
-                  <input id="four" type="radio" name="rating" value="4">
-                </label>
-              </div>
-              <div class="radio-select">
-                <label for="five">
-                  5
-                  <input id="five" type="radio" name="rating" value="5">
-                </label>
-              </div>
-            </fieldset>
-            <label for="comment">
-              Add a Comment (300 character limit; only letters, dashes, apostrophes/single-quotes, commas, semicolons, colons, periods, question marks, exclamation points, parentheses, and spaces allowed):
-              <!-- textarea doesn't support pattern attribute; using input -->
-              <!-- because data isn't validated server-side when offline -->
-              <input id="comment" type="text" name="comments" maxlength="300" spellcheck="true" required aria-required="true" pattern="[A-Za-z' ,;:.?!()-]+">
-            </label>
-            <input id="submit-button" type="submit" name="submit" value="Submit Your Review">
-          </form>
-          <ul id="reviews-list"></ul>
-        </section>
+        <div class="reviews">
+          <section id="reviews-form">
+            <h2>Add a Review</h2>
+            <p>(All fields required)</p>
+            <form id="review-form" action="" method="post">
+              <!-- Wrap text and input in a label element for accessibility -->
+              <label for="first-name">
+                Your First Name (only letters, dashes, apostrophes, and spaces allowed):
+                <input id="first-name" type="text" name="name" maxlength="30" spellcheck="false" required aria-required="true" pattern="[A-Za-z' -]+">
+              </label>
+              <fieldset role="radiogroup" aria-required="true">
+                <legend>Rating</legend>
+                <div class="radio-select">
+                  <label for="zero">
+                    0
+                    <input id="zero" type="radio" name="rating" value="0">
+                  </label>
+                </div>
+                <div class="radio-select">
+                  <label for="one">
+                    1
+                    <input id="one" type="radio" name="rating" value="1">
+                  </label>
+                </div>
+                <div class="radio-select">
+                  <label for="two">
+                    2
+                    <input id="two" type="radio" name="rating" value="2">
+                  </label>
+                </div>
+                <div class="radio-select">
+                  <label for="three">
+                    3
+                    <input id="three" type="radio" name="rating" value="3" required>
+                  </label>
+                </div>
+                <div class="radio-select">
+                  <label for="four">
+                    4
+                    <input id="four" type="radio" name="rating" value="4">
+                  </label>
+                </div>
+                <div class="radio-select">
+                  <label for="five">
+                    5
+                    <input id="five" type="radio" name="rating" value="5">
+                  </label>
+                </div>
+              </fieldset>
+              <label for="comment">
+                Add a Comment (300 character limit; only letters, dashes, apostrophes/single-quotes, commas, semicolons, colons, periods, question marks, exclamation points, parentheses, and spaces allowed):
+                <!-- textarea doesn't support pattern attribute; using input -->
+                <!-- because data isn't validated server-side when offline -->
+                <input id="comment" type="text" name="comments" maxlength="300" spellcheck="true" required aria-required="true" pattern="[A-Za-z' ,;:.?!()-]+">
+              </label>
+              <input id="submit-button" type="submit" name="submit" value="Submit Your Review">
+            </form>
+          </section>
+          <h2>Reviews</h2>
+          <section id="reviews-container">
+            <ul id="reviews-list"></ul>
+          </section>
+        </div>
         <!-- End reviews -->
       </div>
     </main>
