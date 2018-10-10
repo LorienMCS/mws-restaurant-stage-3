@@ -62,35 +62,7 @@ fetchRestaurantFromURL = (callback) => {
   }
 }
 
-/**
- * Get data from review form, and put it in database
- */
-window.addEventListener("load", () => {
-  // Access the form element
-  const form = document.getElementById("review-form");
-
-  // Take over the form element's submit event
-  form.addEventListener("submit", (event) => {
-    // Stop the form from actually submitting itself
-    event.preventDefault();
-    sendData();
-  })
-
-  sendData = () => {
-    // FormData object for uploading to server; can't be stringified
-    const formData = new FormData(form);
-    console.log(formData);
-
-    // Get data that can be added to IDB, since formData can't be stringified
-    const nameInput = document.getElementById("first-name");
-    const ratingInput = document.querySelector("input[name=rating]:checked");
-    const commentInput = document.getElementById("comments");
-    console.log(nameInput.value, ratingInput.value, commentInput.value);
-
-    form.reset();
-  }
-
-});
+/* ====================== START DEVELOPMENT ONLY ====================== */
 
 /**
 * DEVELOPMENT ONLY: For testing IDB addIsFave function
@@ -147,6 +119,71 @@ removeIsFaveFromRestaurantThree = () => {
     console.error('Offline, or:', error);
   });
 }
+
+/**
+* DEVELOPMENT ONLY: For deleting test reviews from server by review id
+*/
+deleteReview = (id) => {
+  const reviewsURL = `${DBHelper.REVIEW_DB_URL}/${id}/`;
+  fetch(reviewsURL, {
+    method: "DELETE"
+  })
+  .then(() => {
+    console.log(`Review with id of ${id} deleted`);
+  })
+  .catch(error => {
+    console.error('Offline, or:', error);
+  });
+}
+
+/* ====================== END DEVELOPMENT ONLY ====================== */
+
+/**
+ * Get data from review form, and put it in database
+ */
+window.addEventListener("load", () => {
+  // Access the form element
+  const form = document.getElementById("review-form");
+
+  // Take over the form element's submit event
+  form.addEventListener("submit", (event) => {
+    // Stop the form from actually submitting itself
+    event.preventDefault();
+    sendData();
+  })
+
+  sendData = (restaurant = self.restaurant) => {
+
+    //DEVELOPEMENT ONLY: For deleting reviews from server
+    //deleteReview();
+
+    const reviewsURL = `${DBHelper.REVIEW_DB_URL}/`;
+
+    // FormData object for uploading to server; can't be stringified
+    const formData = new FormData(form);
+
+    // Get data that can be added to IDB, since formData can't be stringified
+    const nameInput = document.getElementById("first-name");
+    const ratingInput = document.querySelector("input[name=rating]:checked");
+    const commentInput = document.getElementById("comments");
+
+    formData.append("restaurant_id", restaurant.id);
+    fetch(reviewsURL, {
+      method: "POST",
+      body: formData
+    })
+    .then(() => {
+      console.log('Review posted to server');
+      form.reset();
+    })
+    .catch(error => {
+      console.error('Offline, or:', error);
+    });
+
+    //console.log(restaurant.id, nameInput.value, ratingInput.value, commentInput.value);
+    //form.reset();
+  }
+});
 
 /**
  * If is_favorite is missing on a restaurant, POST it to server

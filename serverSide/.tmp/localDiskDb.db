@@ -243,33 +243,6 @@
     ],
     "reviews": [
       {
-        "id": 1,
-        "restaurant_id": 1,
-        "name": "Steve",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": 4,
-        "comments": "Mission Chinese Food has grown up from its scrappy Orchard Street days into a big, two story restaurant equipped with a pizza oven, a prime rib cart, and a much broader menu. Yes, it still has all the hits â€” the kung pao pastrami, the thrice cooked bacon â€”but chef/proprietor Danny Bowien and executive chef Angela Dimayuga have also added a raw bar, two generous family-style set menus, and showstoppers like duck baked in clay. And you can still get a lot of food without breaking the bank."
-      },
-      {
-        "id": 2,
-        "restaurant_id": 1,
-        "name": "Morgan",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": "4",
-        "comments": "This place is a blast. Must orders: GREEN TEA NOODS, sounds gross (to me at least) but these were incredible!, Kung pao pastrami (but you already knew that), beef tartare was a fun appetizer that we decided to try, the spicy ma po tofu SUPER spicy but delicous, egg rolls and scallion pancake i could have passed on... I wish we would have gone with a larger group, so much more I would have liked to try!"
-      },
-      {
-        "id": 3,
-        "restaurant_id": 1,
-        "name": "Jason",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": "3",
-        "comments": "I was VERY excited to come here after seeing and hearing so many good things about this place. Having read much, I knew going into it that it was not going to be authentic Chinese. The place was edgy, had a punk rock throwback attitude, and generally delivered the desired atmosphere. Things went downhill from there though. The food was okay at best and the best qualities were easily overshadowed by what I believe to be poor decisions by the kitchen staff."
-      },
-      {
         "id": 4,
         "restaurant_id": 2,
         "name": "Steph",
@@ -486,31 +459,31 @@
         "comments": "One of the tastiest and most unique ramen places I've been to in NYC, but also the priciest. I think overall its worth the try. Not an everyday casual ramen shop though."
       },
       {
-        "id": 28,
-        "restaurant_id": 10,
-        "name": "Steve",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": 5,
-        "comments": "Head to this laid-back Long Island City restaurant for beef tongue tacos, chicken smothered in a heady mole sauce, and a monster crab tostada. New York's only Michelin-starred Mexican restaurant is an especially cool choice for lunch during the week or drinks after work. Eater critic Ryan Sutton awarded this restaurant two stars."
+        "name": "Melinda",
+        "rating": "5",
+        "comments": "Great pizza (and they let me bring my dog, Foofie, into the restaurant)!",
+        "restaurant_id": "2",
+        "createdAt": "2018-10-10T07:28:28.288Z",
+        "updatedAt": "2018-10-10T07:28:28.288Z",
+        "id": 33
       },
       {
-        "id": 29,
-        "restaurant_id": 10,
-        "name": "Rob",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": 5,
-        "comments": "The hype was real. Please go. Get the ceviche. And the tres leches. You're welcome"
+        "name": "Erlich",
+        "rating": "3",
+        "comments": "This restaurant is lit so brightly! Why? I thought the food was great, though; but unfortunately, my long-suffering significant other didn't.",
+        "restaurant_id": "10",
+        "createdAt": "2018-10-10T07:44:55.217Z",
+        "updatedAt": "2018-10-10T07:44:55.217Z",
+        "id": 34
       },
       {
-        "id": 30,
-        "restaurant_id": 10,
-        "name": "Jason",
-        "createdAt": 1504095567183,
-        "updatedAt": 1504095567183,
-        "rating": 4,
-        "comments": "For a Michelin star restaurant, it's fairly priced and the food is fairly good. Started with a strawberry margarita which was good in flavor but not much alcohol. Had the chicken enchiladas with salsa verde and it was really good. Great balance in flavor and a good portion. Extra tasty with their hot sauces. My wife had the lamb but it was a bit too salty for our taste. Although, it was cooked very well and fell off the bone. The highlight of the night was the tres leches cake. Probably the best I've ever had to be honest. Not too sweet and very milky. Overall, one of my top 3 favorite Mexican in NY."
+        "name": "Bilbo",
+        "rating": "5",
+        "comments": "Mission Chinese is my go-to restaurant to bring out-of-town guests. Great service, feels fancy but the prices are good, and they have the best stir-fried greens in town.",
+        "restaurant_id": "1",
+        "createdAt": "2018-10-10T07:52:09.601Z",
+        "updatedAt": "2018-10-10T07:52:09.601Z",
+        "id": 35
       }
     ]
   },
@@ -566,7 +539,7 @@
       "id": 10
     },
     "reviews": {
-      "id": 30
+      "id": 35
     }
   }
 }
