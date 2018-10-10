@@ -26,14 +26,18 @@
 
     <main>
       <section class="filter-options">
-        <label for="neighborhoods-select">Choose Neighborhood:</label>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-          <option value="all">All Neighborhoods</option>
-        </select>
-        <label for="cuisines-select">Choose Cuisine:</label>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-          <option value="all">All Cuisines</option>
-        </select>
+        <label for="neighborhoods-select">
+          Choose Neighborhood:
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+            <option value="all">All Neighborhoods</option>
+          </select>
+        </label>
+        <label for="cuisines-select">
+          Choose Cuisine Type:
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+            <option value="all">All Cuisine Types</option>
+          </select>
+        </label>
       </section>
       <section>
         <h2 class="restaurants">List of Restaurants</h2>
