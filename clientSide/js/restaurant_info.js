@@ -163,9 +163,9 @@ window.addEventListener("load", () => {
     const formData = new FormData(form);
 
     // Get data that can be added to IDB, since formData can't be stringified
-    const nameInput = document.getElementById("first-name");
-    const ratingInput = document.querySelector("input[name=rating]:checked");
-    const commentInput = document.getElementById("comments");
+    const name = document.getElementById("first-name").value;
+    const rating = document.querySelector("input[name=rating]:checked").value;
+    const comment = document.getElementById("comment").value;
 
     formData.append("restaurant_id", restaurant.id);
     fetch(reviewsURL, {
@@ -178,10 +178,10 @@ window.addEventListener("load", () => {
     })
     .catch(error => {
       console.error('Offline, or:', error);
+      console.log(restaurant.id, name, rating, comment);
+      DBHelper.addToOutbox(restaurant.id, name, rating, comment);
+      form.reset();
     });
-
-    //console.log(restaurant.id, nameInput.value, ratingInput.value, commentInput.value);
-    //form.reset();
   }
 });
 

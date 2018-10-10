@@ -229,4 +229,22 @@ class DBHelper {
     return marker;
   }
 
+  /**
+   * Put review in IDB outbox object store if submitted when offline
+   */
+  static addToOutbox(id, name, rating, comment) {
+    const item = {
+      restaurant_id: id,
+      name: name,
+      rating: rating,
+      comments: comment
+    };
+    idb.open('restaurant-data', 1).then(db => {
+      return db.transaction('outbox', 'readwrite').objectStore('outbox').put(item);
+    })
+    .then(() => {
+      console.log('Added review to IDB outbox object store');
+    });
+  }
+
 }

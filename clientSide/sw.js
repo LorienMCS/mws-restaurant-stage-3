@@ -62,6 +62,11 @@ function createAndFillDB() {
       });
       console.log('Reviews added successfully');
     }
+    if (!upgradeDb.objectStoreNames.contains('outbox')) {
+      console.log('making a new outbox object store');
+      let reviewStore = upgradeDb.createObjectStore('outbox', {keyPath: 'id', autoIncrement: true});
+      console.log('Outbox created successfully');
+    }
   });
 }
 
