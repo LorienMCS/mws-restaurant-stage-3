@@ -79,13 +79,15 @@ window.addEventListener("load", () => {
   sendData = () => {
     // FormData object for uploading to server; can't be stringified
     const formData = new FormData(form);
+    console.log(formData);
 
     // Get data that can be added to IDB, since formData can't be stringified
     const nameInput = document.getElementById("first-name");
     const ratingInput = document.querySelector("input[name=rating]:checked");
-    const commentInput = document.getElementById("comment");
+    const commentInput = document.getElementById("comments");
     console.log(nameInput.value, ratingInput.value, commentInput.value);
 
+    form.reset();
   }
 
 });
