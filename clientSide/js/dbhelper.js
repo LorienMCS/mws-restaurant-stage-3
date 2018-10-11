@@ -1,10 +1,15 @@
 /**
- * Register service worker.
+ * Register service worker, and request a one-time background sync
  */
 if (navigator.serviceWorker) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').then(reg => {
       console.log('Service worker reg successful, scope: ', reg.scope);
+      navigator.serviceWorker.ready.then(swReg => {
+        return swReg.sync.register('outboxSync').then(() => {
+          console.log('Outbox sync registered');
+        });
+      });
     }, err => {
       console.log('Service worker reg failed: ', err);
     })
