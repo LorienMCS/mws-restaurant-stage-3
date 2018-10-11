@@ -393,10 +393,6 @@ label {
   width: 100%;
 }
 
-#first-name {
-  width: 50%;
-}
-
 input {
   font-family: inherit;
   font-size: 100%;
@@ -405,6 +401,10 @@ input {
 label {
   margin-top: 1em;
   text-align: left;
+}
+
+#first-name {
+  width: 50%;
 }
 
 input,
@@ -419,10 +419,23 @@ fieldset {
 }
 
 #submit-button {
-  width: 60%;
+  width: 65%;
   background-color: #ebf8ff;
   border: 3px solid #ccc;
   border-radius: 2em;
   margin: 20px 0 10px;
   padding: 10px 0 10px;
+}
+
+#offline {
+  visibility: hidden;
+  background-color: #fdebec;
+  border: 3px dashed #f7a3a7;
+  height: 95px;
+  width: 90%;
+}
+
+#offline p {
+  font-size: 1.1rem;
+  margin: 10px 5px 15px 10px;
 }
