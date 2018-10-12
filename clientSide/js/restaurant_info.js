@@ -38,6 +38,24 @@ initMap = () => {
 }
 
 /**
+ * Check for online or offline status
+ */
+window.addEventListener('load', () => {
+  function updateOnlineStatus(event) {
+    // To check if you are online
+    if(navigator.onLine) {
+      console.log('online');
+      DBHelper.uploadThenClearOfflineReviews();
+    } else {
+      console.log('offline');
+    }
+  }
+  // To see changes in the network state
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+
+/**
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = (callback) => {
@@ -154,8 +172,9 @@ window.addEventListener("load", () => {
 
   sendData = (restaurant = self.restaurant) => {
 
-    //DEVELOPEMENT ONLY: For deleting reviews from server
-    //deleteReview();
+    // DEVELOPEMENT ONLY: For deleting reviews from server; add id as param
+    // Because apparently the Sails server will only display 30 reviews
+    // deleteReview();
 
     const reviewsURL = `${DBHelper.REVIEW_DB_URL}/`;
 
@@ -178,7 +197,6 @@ window.addEventListener("load", () => {
     })
     .catch(error => {
       console.error('Offline, or:', error);
-      console.log(restaurant.id, name, rating, comment);
       DBHelper.addToOutbox(restaurant.id, name, rating, comment);
       form.reset();
     });
@@ -186,7 +204,7 @@ window.addEventListener("load", () => {
 });
 
 /**
- * If is_favorite is missing on a restaurant, POST it to server
+ * If is_favorite is missing on a restaurant, POST is_favorite to server
  */
 addIsFave = (restaurant) => {
   const restaurantURL = `${DBHelper.RESTAURANT_DB_URL}/${restaurant.id}/`;
@@ -260,11 +278,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   const isFave = restaurant.is_favorite;
   name.innerHTML = restaurant.name;
-
+  // If is_favorite is a field on this restaurant
   if(isFave) {
     toggleFaveButton(isFave);
     //DEVELOPEMENT ONLY: For testing addIsFave function
     //removeIsFaveFromRestaurantThree();
+  // If is_favorite is not a field on this restaurant, add it
   } else {
     addIsFave(restaurant);
   }

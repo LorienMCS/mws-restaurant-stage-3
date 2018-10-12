@@ -1,19 +1,14 @@
 /**
- * Register service worker, and request a one-time background sync
+ * Register service worker
  */
 if (navigator.serviceWorker) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').then(reg => {
       console.log('Service worker reg successful, scope: ', reg.scope);
-      navigator.serviceWorker.ready.then(swReg => {
-        return swReg.sync.register('outboxSync').then(() => {
-          console.log('Outbox sync registered');
-        });
-      });
     }, err => {
       console.log('Service worker reg failed: ', err);
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -89,6 +84,41 @@ class DBHelper {
       return db.transaction('outbox').objectStore('outbox').getAll();
     }).then(data => {
       callback(null, data);
+    });
+  }
+
+  /**
+   * Upload reviews when back online, then remove them from outbox object store
+   */
+  // Currently, all this does is console.log the contents of Outbox
+  static uploadThenClearOfflineReviews() {
+    idb.open('restaurant-data', 1).then(db => {
+      // Open a cursor
+      return db.transaction('outbox').objectStore('outbox').openCursor();
+      // Name the function we're in 'postReview', then call it
+      // once cursor.continue resolves, until we're at the end of the list
+    }).then(function postReview(cursor) {
+      // If the cursor is undefined, or there isn't one, return
+      if (!cursor) return;
+      // TODO: finish code to upload outbox reviews to server
+      console.log(`${cursor.key}: ${cursor.value}`);
+      // fetch(`${DBHelper.REVIEW_DB_URL}/`, {
+      //   method: "POST",
+      //   body: // TODO: gather data I need for body
+      // })
+      // .then(() => {
+      //   console.log('Outbox review posted to server');
+      //   // TODO: delete review from IDB
+      // })
+      // .catch(error => {
+      //   console.error('Offline, or:', error);
+      // });
+      // Call cursor.continue to move on to the next item
+      return cursor.continue().then(postReview);
+    }).then(() => {
+      console.log('Done cursoring');
+    }).catch(function(error) {
+      console.log(error.message);
     });
   }
 
@@ -278,3 +308,4 @@ class DBHelper {
   }
 
 }
+

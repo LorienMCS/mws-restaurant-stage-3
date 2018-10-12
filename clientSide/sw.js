@@ -101,9 +101,3 @@ self.addEventListener('fetch', event => {
   )
 });
 
-// Listen for the one-time background sync event
-self.addEventListener('sync', event => {
-  if (event.tag == 'outboxSync') {
-    event.waitUntil(/* TODO: Call function to post and delete outbox data */);
-  }
-});

@@ -15,6 +15,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
+ * Check for online or offline status
+ */
+window.addEventListener('load', () => {
+  function updateOnlineStatus(event) {
+    // To check if you are online
+    if(navigator.onLine) {
+      console.log('online');
+      DBHelper.uploadThenClearOfflineReviews();
+    } else {
+      console.log('offline');
+    }
+  }
+  // To see changes in the network state
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+
+/**
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
