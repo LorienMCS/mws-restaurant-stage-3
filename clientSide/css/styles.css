@@ -427,7 +427,7 @@ fieldset {
   padding: 10px 0 10px;
 }
 
-#offline {
+#offline-msg {
   visibility: hidden;
   background-color: #fdebec;
   border: 3px dashed #f7a3a7;
@@ -435,7 +435,7 @@ fieldset {
   width: 90%;
 }
 
-#offline p {
+#offline-msg p {
   font-size: 1.1rem;
   margin: 10px 5px 15px 10px;
 }

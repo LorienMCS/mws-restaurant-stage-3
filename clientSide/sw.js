@@ -1,5 +1,5 @@
 self.importScripts('js/idb.js', 'js/dbhelper.js');
-let cacheName = 'restaurants-cache-v1';
+let cacheName = 'restaurants-cache-v2';
 let urlsToCache = [
   '/',
   '/restaurant.html',
@@ -47,7 +47,7 @@ function createAndFillDB() {
   'use strict';
   idb.open('restaurant-data', 1, upgradeDb => {
     if (!upgradeDb.objectStoreNames.contains('restaurants')) {
-      console.log('making a new restaurants object store');
+      console.log('Making a new restaurants object store');
       let restaurantStore = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
       restaurants.map(restaurant => {
         restaurantStore.add(restaurant);
@@ -55,7 +55,7 @@ function createAndFillDB() {
       console.log('Restaurants added successfully');
     }
     if (!upgradeDb.objectStoreNames.contains('reviews')) {
-      console.log('making a new reviews object store');
+      console.log('Making a new reviews object store');
       let reviewStore = upgradeDb.createObjectStore('reviews', {keyPath: 'id'});
       reviews.map(review => {
         reviewStore.add(review);
@@ -63,7 +63,7 @@ function createAndFillDB() {
       console.log('Reviews added successfully');
     }
     if (!upgradeDb.objectStoreNames.contains('outbox')) {
-      console.log('making a new outbox object store');
+      console.log('Making a new outbox object store');
       let reviewStore = upgradeDb.createObjectStore('outbox', {keyPath: 'id', autoIncrement: true});
       console.log('Outbox created successfully');
     }

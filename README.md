@@ -1,5 +1,9 @@
 # Udacity's "Mobile Web Specialist Restaurant Reviews App" Project, Stage 3
 
+![Google's Lighthouse web page audit results showing scores of 89 and above](LighthouseScore.png "Lighthouse Results")
+
+![Google's Lighthouse audit settings](LighthouseSettings.png "Lighthouse Settings")
+
 ## To run this code:
 
 ### 1) cd into serverSide, and follow the instructions below:

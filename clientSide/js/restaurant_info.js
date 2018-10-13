@@ -38,21 +38,19 @@ initMap = () => {
 }
 
 /**
- * Check for online or offline status
+ * Check for online status; if online, hide offline msg, & post & clear outbox reviews
  */
 window.addEventListener('load', () => {
   function updateOnlineStatus(event) {
     // To check if you are online
     if(navigator.onLine) {
-      console.log('online');
+      console.log('Online');
+      document.getElementById("offline-msg").style.visibility = "hidden";
       DBHelper.uploadThenClearOfflineReviews();
-    } else {
-      console.log('offline');
     }
   }
   // To see changes in the network state
   window.addEventListener('online', updateOnlineStatus);
-  window.addEventListener('offline', updateOnlineStatus);
 });
 
 /**
@@ -172,8 +170,8 @@ window.addEventListener("load", () => {
 
   sendData = (restaurant = self.restaurant) => {
 
-    // DEVELOPEMENT ONLY: For deleting reviews from server; add id as param
-    // Because apparently the Sails server will only display 30 reviews
+    // For deleting reviews from server; add id as parameter
+    // (Because apparently the Sails server will only display 30 reviews)
     // deleteReview();
 
     const reviewsURL = `${DBHelper.REVIEW_DB_URL}/`;
@@ -197,6 +195,7 @@ window.addEventListener("load", () => {
     })
     .catch(error => {
       console.error('Offline, or:', error);
+      document.getElementById("offline-msg").style.visibility = "visible";
       DBHelper.addToOutbox(restaurant.id, name, rating, comment);
       form.reset();
     });
@@ -263,7 +262,7 @@ noFaveButton = (restaurant = self.restaurant) => {
 /**
  * Set fave button to yes or no
  */
-toggleFaveButton = (isFave) => {
+toggleFaveButton = (isFave, restaurant = self.restaurant) => {
   if(isFave.toString() === 'false') {
     noFaveButton(restaurant);
   } else {
@@ -281,8 +280,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // If is_favorite is a field on this restaurant
   if(isFave) {
     toggleFaveButton(isFave);
-    //DEVELOPEMENT ONLY: For testing addIsFave function
-    //removeIsFaveFromRestaurantThree();
+
+    // For testing addIsFave function
+    // removeIsFaveFromRestaurantThree();
+
   // If is_favorite is not a field on this restaurant, add it
   } else {
     addIsFave(restaurant);

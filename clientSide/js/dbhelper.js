@@ -90,34 +90,43 @@ class DBHelper {
   /**
    * Upload reviews when back online, then remove them from outbox object store
    */
-  // Currently, all this does is console.log the contents of Outbox
   static uploadThenClearOfflineReviews() {
     idb.open('restaurant-data', 1).then(db => {
-      // Open a cursor
-      return db.transaction('outbox').objectStore('outbox').openCursor();
-      // Name the function we're in 'postReview', then call it
-      // once cursor.continue resolves, until we're at the end of the list
-    }).then(function postReview(cursor) {
-      // If the cursor is undefined, or there isn't one, return
-      if (!cursor) return;
-      // TODO: finish code to upload outbox reviews to server
-      console.log(`${cursor.key}: ${cursor.value}`);
-      // fetch(`${DBHelper.REVIEW_DB_URL}/`, {
-      //   method: "POST",
-      //   body: // TODO: gather data I need for body
-      // })
-      // .then(() => {
-      //   console.log('Outbox review posted to server');
-      //   // TODO: delete review from IDB
-      // })
-      // .catch(error => {
-      //   console.error('Offline, or:', error);
-      // });
-      // Call cursor.continue to move on to the next item
-      return cursor.continue().then(postReview);
+      return db.transaction('outbox').objectStore('outbox').getAll();
+    }).then(reviews => {
+      reviews.map(review => {
+        const data = {
+          restaurant_id: review.restaurant_id,
+          name: review.name,
+          rating: review.rating,
+          comments: review.comments,
+        };
+        fetch(`${DBHelper.REVIEW_DB_URL}/`, {
+          method: "POST",
+          body: JSON.stringify(data),
+        }).then(response => {
+          console.log(`outbox review by ${review.name} posted to server`);
+        }).catch(error => {
+          console.error('Offline, or:', error);
+        });
+      });
     }).then(() => {
-      console.log('Done cursoring');
-    }).catch(function(error) {
+      console.log('Done posting to server');
+      DBHelper.clearOfflineReviews();
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+
+  /**
+   * Remove uploaded reviews from outbox object store
+   */
+  static clearOfflineReviews() {
+    idb.open('restaurant-data', 1).then(db => {
+      return db.transaction('outbox', 'readwrite').objectStore('outbox').clear();
+    }).then(() => {
+      console.log('Outbox object store should be empty');
+    }).catch(error => {
       console.log(error.message);
     });
   }

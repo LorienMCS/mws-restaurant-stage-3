@@ -1,9 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-let faveButton
-var newMap
-var markers = []
+  cuisines;
+var newMap;
+var markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -15,21 +14,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
- * Check for online or offline status
+ * Check for online; if online, post & clear outbox reviews
  */
 window.addEventListener('load', () => {
   function updateOnlineStatus(event) {
     // To check if you are online
     if(navigator.onLine) {
-      console.log('online');
+      console.log('Online');
       DBHelper.uploadThenClearOfflineReviews();
-    } else {
-      console.log('offline');
     }
   }
   // To see changes in the network state
   window.addEventListener('online', updateOnlineStatus);
-  window.addEventListener('offline', updateOnlineStatus);
 });
 
 /**
