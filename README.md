@@ -1,6 +1,6 @@
 # Udacity's "Mobile Web Specialist Restaurant Reviews App" Project, Stage 3
 
-![Chrome DevTools Lighthouse web page audit results showing scores of 89 and above] (LighthouseScore.png "Lighthouse Results")
+![Chrome DevTools Lighthouse web page audit results showing scores of 89 and above] (DevToolsAudit.png "Lighthouse Results")
 
 ## To run this code:
 
